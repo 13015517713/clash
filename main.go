@@ -47,10 +47,13 @@ func init() {
 
 func main() {
 	maxprocs.Set(maxprocs.Logger(func(string, ...any) {}))
+
 	if version {
 		fmt.Printf("Clash %s %s %s with %s %s\n", C.Version, runtime.GOOS, runtime.GOARCH, runtime.Version(), C.BuildTime)
 		return
 	}
+
+	log.Infoln("here")
 
 	if homeDir != "" {
 		if !filepath.IsAbs(homeDir) {
@@ -59,6 +62,8 @@ func main() {
 		}
 		C.SetHomeDir(homeDir)
 	}
+
+	log.Infoln("here")
 
 	if configFile != "" {
 		if !filepath.IsAbs(configFile) {
@@ -75,6 +80,8 @@ func main() {
 		log.Fatalln("Initial configuration directory error: %s", err.Error())
 	}
 
+	log.Debugln("here")
+
 	if testConfig {
 		if _, err := executor.Parse(); err != nil {
 			log.Errorln(err.Error())
@@ -84,6 +91,8 @@ func main() {
 		fmt.Printf("configuration file %s test is successful\n", C.Path.Config())
 		return
 	}
+
+	log.Infoln("here")
 
 	var options []hub.Option
 	if flagset["ext-ui"] {
@@ -100,7 +109,11 @@ func main() {
 		log.Fatalln("Parse config error: %s", err.Error())
 	}
 
+	log.Infoln("Clash is starting")
+
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(sigCh, syscall.SIGINT, syscall.SIGTERM)
 	<-sigCh
+
+	log.Infoln("Clash is stopping")
 }

@@ -12,12 +12,14 @@ import (
 var (
 	logCh  = make(chan any)
 	source = observable.NewObservable(logCh)
-	level  = INFO
+	level  = DEBUG
 )
 
 func init() {
+	fmt.Println("log init")
+	log.SetReportCaller(true)
 	log.SetOutput(os.Stdout)
-	log.SetLevel(log.DebugLevel)
+	log.SetLevel(log.TraceLevel)
 }
 
 type Event struct {

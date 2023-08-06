@@ -70,6 +70,7 @@ func SetBindAddress(host string) {
 	bindAddress = host
 }
 
+// 创建http server
 func ReCreateHTTP(port int, tcpIn chan<- C.ConnContext) {
 	httpMux.Lock()
 	defer httpMux.Unlock()
