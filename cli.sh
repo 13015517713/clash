@@ -1,0 +1,1 @@
+curl -x http://127.0.0.1:7890 -v http://connect.rom.miui.com/generate_204
